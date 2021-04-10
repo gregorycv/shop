@@ -23,7 +23,8 @@
   },
   "homepage": "https://github.com/gregorycv/shop#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongoose": "^5.12.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.13.14",
