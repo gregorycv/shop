@@ -1,5 +1,14 @@
 {
-  "extends": "@tsconfig/recommended/tsconfig.json",
+  "compilerOptions": {
+    "target": "ES5",
+    "module": "commonjs",
+    "outDir": "build",
+    "lib": ["ES6"],
+    "esModuleInterop": true,
+    // type checking
+    "strict": true,
+    "noImplicitAny": true
+  },
 
   "include": ["index.ts", "src/**/*"],
   "exclude": ["node_modules"]
