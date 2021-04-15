@@ -1,7 +1,7 @@
 import { config } from '../config/config';
 import { ConnectOptions, connect } from 'mongoose';
 
-const connectDB = async () => {
+const connectDB = async (): Promise<void> => {
   try {
     const dbURI = config.dbURI;
     const options: ConnectOptions = {
