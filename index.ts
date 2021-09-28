@@ -1,13 +1,19 @@
 import express from 'express';
-import connectDB from './src/db/database';
-
-connectDB();
+import bodyParser from 'body-parser';
+import cors from 'cors';
 
 const app = express();
-const port = 3000;
+const port = 3001;
+const corsOptions = {
+  origin: `http://localhost:${port}`
+};
+
+app.use(cors(corsOptions));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
-  res.send('Here we goooo!');
+  res.json({ message: 'Here we gooo!'});
 });
 
 app.listen(port, () => {
