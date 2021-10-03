@@ -10,6 +10,8 @@
     "plugin:@typescript-eslint/recommended"
   ],
   "rules": { 
-    "indent": ["error", 2]
+    "indent": ["error", 2],
+    "object-curly-spacing": ["warn", "always"],
+    "@typescript-eslint/no-empty-interface": "off"
   }
 }
