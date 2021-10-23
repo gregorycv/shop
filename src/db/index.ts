@@ -1,6 +1,6 @@
 import { DataTypes } from 'sequelize';
 import { Sequelize, Options } from 'sequelize';
-import { User, Order, OrderItem, Product } from '../models';
+import { UserModel, OrderModel, OrderItemModel, ProductModel } from '../models';
 
 const config: Options = {
   host: 'localhost',
@@ -17,26 +17,26 @@ const config: Options = {
 };
 
 const sequelize = new Sequelize(config);
-const UserModel = User(sequelize, DataTypes);
-const OrderModel = Order(sequelize, DataTypes);
-const OrderItemModel = OrderItem(sequelize, DataTypes);
-const ProductModel = Product(sequelize, DataTypes);
+const User = UserModel(sequelize, DataTypes);
+const Order = OrderModel(sequelize, DataTypes);
+const OrderItem = OrderItemModel(sequelize, DataTypes);
+const Product = ProductModel(sequelize, DataTypes);
 
-UserModel.hasMany(OrderModel);
-OrderModel.belongsTo(UserModel);
+User.hasMany(Order);
+Order.belongsTo(User);
 
-OrderModel.hasMany(OrderItemModel);
-OrderItemModel.belongsTo(OrderModel);
+Order.hasMany(OrderItem);
+OrderItem.belongsTo(Order);
 
-ProductModel.hasMany(OrderItemModel);
-OrderItemModel.belongsTo(ProductModel);
+Product.hasMany(OrderItem);
+OrderItem.belongsTo(Product);
 
 export const db = {
   sequelize,
   Sequelize,
-  User: UserModel,
-  Order: OrderModel,
-  OrderItem: OrderItemModel,
-  Product: ProductModel,
+  User,
+  Order,
+  OrderItem,
+  Product,
 };
 

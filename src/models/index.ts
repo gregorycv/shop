@@ -1,4 +1,4 @@
-export { default as User } from './user';
-export { default as Order } from './order'
-export { default as OrderItem } from './order-item';
-export { default as Product } from './Product';
+export { default as UserModel } from './user';
+export { default as OrderModel } from './order'
+export { default as OrderItemModel } from './order-item';
+export { default as ProductModel } from './Product';
