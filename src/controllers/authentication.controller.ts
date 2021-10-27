@@ -2,6 +2,7 @@ import { NextFunction, Request, Response, Router } from 'express';
 import { Controller } from '../interfaces/controller.interface';
 import AuthenticationService from '../services/authentication.service';
 import { UserCreationAttributes as CreateUserDto } from '../models/user';
+import { LoginDto } from '../dto';
 
 class AuthenticationController implements Controller {
   public path = '/auth';
@@ -14,27 +15,40 @@ class AuthenticationController implements Controller {
 
   private initializeRoutes() {
     this.router.post(`${this.path}/register`, this.register);
+    this.router.post(`${this.path}/login`, this.login);
+    this.router.post(`${this.path}/logout`, this.logout);
   }
 
   private register = async (request: Request, response: Response, next: NextFunction) => {
     // TODO: Validate incoming user data
     const userData: CreateUserDto = request.body;
     try {
-      const { cookie, user, token } = await this.authenticationService.register(userData);
+      const { cookie, user } = await this.authenticationService.register(userData);
       response.setHeader('Set-Cookie', [cookie]);
-      return response.send(user);
+      response.send(user);
     } catch (error) {
+      console.log(error);
       next(error);
     }
   }
 
-  // private login = async (request: Request, response: Response, next: NextFunction) => {
+  private login = async (request: Request, response: Response, next: NextFunction) => {
+    // TODO: Validate incoming login data
+    const loginData: LoginDto = request.body;
+    try {
+      const { cookie, user } = await this.authenticationService.login(loginData);
+      response.setHeader('Set-Cookie', [cookie]);
+      response.send(user);
+    } catch (error) {
+      console.log(error);
+      next(error);
+    }
+  }
 
-  // }
-
-  // private logout = async (request: Request, response: Response, next: NextFunction) => {
-
-  // }
+  private logout = async (request: Request, response: Response) => {
+    response.setHeader('Set-Cookie', ['Authorization=;Max-age=0']);
+    response.send(200);
+  }
 }
 
 export default AuthenticationController;
