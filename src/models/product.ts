@@ -6,17 +6,17 @@ interface ProductAttributes {
   name: string;
   description: string;
   price: number;
-  distribution_type: 'piece' | 'g'
+  distributionType: 'piece' | 'g'
 }
 
-interface ProductCreationAttributes extends Optional<ProductAttributes, "id"> {}
+interface ProductCreationAttributes extends Optional<ProductAttributes, 'id'> {}
 
 class Product extends Model<ProductAttributes, ProductCreationAttributes> implements ProductAttributes {
   public id!: number;
   public name!: string;
   public description!: string;
   public price!: number;
-  public distribution_type!: 'piece' | 'g';
+  public distributionType!: 'piece' | 'g';
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -41,7 +41,7 @@ export default (sequelize: Sequelize, DataTypes: typeof DTypes): typeof Product 
     type: DataTypes.DECIMAL,
     allowNull: false
   },
-  distribution_type: {
+  distributionType: {
     type: DataTypes.STRING,
     allowNull: false
   },

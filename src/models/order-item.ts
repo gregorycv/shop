@@ -7,7 +7,7 @@ interface OrderItemAttributes {
   product_id: number;
 }
 
-interface OrderItemCreationAttributes extends Optional<OrderItemAttributes, "id"> {}
+interface OrderItemCreationAttributes extends Optional<OrderItemAttributes, 'id'> {}
 
 class OrderItem extends Model<OrderItemAttributes, OrderItemCreationAttributes> implements OrderItemAttributes {
   public id!: number;

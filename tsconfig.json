@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
+    "baseUrl": "./src/server.ts",
     "target": "ES6",
     "module": "commonjs",
     "outDir": "build",
@@ -11,6 +11,6 @@
     "noImplicitAny": true
   },
 
-  "include": ["index.ts", "src/**/*"],
+  "include": ["server.ts", "src/**/*"],
   "exclude": ["node_modules"]
 }

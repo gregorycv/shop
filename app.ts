@@ -1,7 +1,7 @@
-import express from "express";
-import cookieParser from "cookie-parser";
-import { Controller } from "./src/interfaces/controller.interface";
-import { db } from "./src/db";
+import express from 'express';
+import cookieParser from 'cookie-parser';
+import { Controller } from './src/interfaces';
+import { db } from './src/db';
 
 class App {
   public app: express.Application;
@@ -15,8 +15,8 @@ class App {
   }
 
   public listen(): void {
-    this.app.listen(3001, () => {
-      console.log("App listening on port 3001");
+    this.app.listen(process.env.PORT, () => {
+      console.log(`App listening on port ${process.env.PORT}`);
     });
   }
 
@@ -32,7 +32,7 @@ class App {
 
   private initializeControlers(controllers: Controller[]) {
     controllers.forEach((controller) => {
-      this.app.use("/", controller.router);
+      this.app.use('/', controller.router);
     });
   }
 
