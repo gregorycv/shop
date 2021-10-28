@@ -1,5 +1,6 @@
 import { Optional, Sequelize, DataTypes as DTypes } from 'sequelize';
 import { Model } from 'sequelize';
+import { ROLE } from '../utils/constants';
 
 export interface UserAttributes {
   id: number;
@@ -7,6 +8,7 @@ export interface UserAttributes {
   lastName: string;
   email: string;
   password: string;
+  role: string;
   phone: string;
   street: string;
   streetNumber: string;
@@ -26,6 +28,7 @@ class User
   public lastName!: string;
   public email!: string;
   public password!: string;
+  public role!: string;
   public phone!: string;
   public street!: string;
   public streetNumber!: string;
@@ -60,6 +63,10 @@ export default (sequelize: Sequelize, DataTypes: typeof DTypes): typeof User =>
       password: {
         type: DataTypes.STRING,
         allowNull: false,
+      },
+      role: {
+        type: DataTypes.STRING,
+        defaultValue: ROLE.USER
       },
       phone: {
         type: DataTypes.STRING,
