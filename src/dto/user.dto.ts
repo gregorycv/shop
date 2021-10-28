@@ -1,4 +1,4 @@
-import { UserAttributes } from './../models/user';
+import { User } from './../models/user';
 
 class UserDto {
   public id: number;
@@ -6,7 +6,7 @@ class UserDto {
   public lastName: string;
   public email: string;
 
-  constructor(user: UserAttributes) {
+  constructor(user: User) {
     this.id = user.id;
     this.fistName = user.firstName;
     this.lastName = user.lastName;

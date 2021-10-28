@@ -8,7 +8,7 @@ export interface UserAttributes {
   lastName: string;
   email: string;
   password: string;
-  role: string;
+  role: ROLE;
   phone: string;
   street: string;
   streetNumber: string;
@@ -19,7 +19,7 @@ export interface UserAttributes {
 export interface UserCreationAttributes
   extends Optional<UserAttributes, 'id'> {}
 
-class User
+export class User
   extends Model<UserAttributes, UserCreationAttributes>
   implements UserAttributes
 {
@@ -28,7 +28,7 @@ class User
   public lastName!: string;
   public email!: string;
   public password!: string;
-  public role!: string;
+  public role!: ROLE;
   public phone!: string;
   public street!: string;
   public streetNumber!: string;
