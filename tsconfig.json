@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "baseUrl": "./src/server.ts",
+    "typeRoots": ["./types"],
     "target": "ES6",
     "module": "commonjs",
     "outDir": "build",

@@ -38,6 +38,7 @@ class App {
 
   private async connectToTheDatabase() {
     await db.sequelize.authenticate();
+    // await db.sequelize.sync({ force: true });
   }
 }
 

@@ -47,7 +47,7 @@ class AuthenticationController implements Controller {
 
   private logout = async (request: Request, response: Response) => {
     response.setHeader('Set-Cookie', ['Authorization=;Max-age=0']);
-    response.send(200);
+    response.sendStatus(200);
   }
 }
 
