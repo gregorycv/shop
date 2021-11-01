@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import { DataStoredInToken, RequestWithUser } from '../interfaces';
 import { db } from '../db';
 
-export const authMiddleware = async (request: RequestWithUser, response: Response, next: NextFunction) => {
+export const authenticationMiddleware = async (request: RequestWithUser, response: Response, next: NextFunction) => {
   const { cookies } = request;
   console.log(cookies);
   if (cookies && cookies.Authorization) {

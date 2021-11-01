@@ -21,6 +21,7 @@ class AuthenticationController implements Controller {
 
   private register = async (request: Request, response: Response, next: NextFunction) => {
     // TODO: Validate incoming user data
+    // TODO: secure adding roles by new users
     const userData: CreateUserDto = request.body;
     try {
       const { cookie, user } = await this.authenticationService.register(userData);
