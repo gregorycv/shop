@@ -3,16 +3,18 @@ import { Model } from 'sequelize';
 
 interface OrderItemAttributes {
   id: number;
-  order_id: number;
-  product_id: number;
+  orderId: number;
+  productId: number;
+  price: number;
 }
 
 interface OrderItemCreationAttributes extends Optional<OrderItemAttributes, 'id'> {}
 
 class OrderItem extends Model<OrderItemAttributes, OrderItemCreationAttributes> implements OrderItemAttributes {
   public id!: number;
-  public order_id!: number;
-  public product_id!: number;
+  public orderId!: number;
+  public productId!: number;
+  public price!: number;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -25,12 +27,16 @@ export default (sequelize: Sequelize, DataTypes: typeof DTypes): typeof OrderIte
     autoIncrement: true,
     allowNull: false
   },
-  order_id: {
+  orderId: {
     type: DataTypes.BIGINT,
     allowNull: false
   },
-  product_id: {
+  productId: {
     type: DataTypes.BIGINT,
+    allowNull: false
+  },
+  price: {
+    type: DataTypes.DECIMAL,
     allowNull: false
   },
 }, {

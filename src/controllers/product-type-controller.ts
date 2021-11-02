@@ -1,7 +1,7 @@
 import { authenticationMiddleware, roleMiddleware } from './../middleware';
 import { NextFunction, Request, Response, Router } from 'express';
 import { Controller } from '../interfaces/controller.interface';
-import { CreateProductTypeDto } from '../dto';
+import { ProductTypeCreationAttributes as CreateProductTypeDto } from '../models/product-type';
 import { db } from '../db';
 import { ROLE } from '../utils/constants';
 
@@ -59,8 +59,8 @@ class ProductTypeController implements Controller {
     const { id } = request.params;
     const productTypeData: CreateProductTypeDto = request.body;
     try {
-      const updatedPost = await db.ProductType.update(productTypeData, { where: { id } });
-      response.send(updatedPost);
+      const updatedProductType = await db.ProductType.update(productTypeData, { where: { id } });
+      response.send(updatedProductType);
     } catch (error) {
       next(error);
     }
