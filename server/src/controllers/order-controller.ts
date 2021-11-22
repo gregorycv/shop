@@ -1,4 +1,4 @@
-import { authenticationMiddleware, roleMiddleware } from './../middleware';
+import { authenticationMiddleware, roleMiddleware } from '../middleware';
 import { NextFunction, Request, Response, Router } from 'express';
 import { Controller } from '../interfaces/controller.interface';
 import { CreateOrderDto } from '../interfaces/order';

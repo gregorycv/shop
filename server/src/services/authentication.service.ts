@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { UserCreationAttributes as CreateUserDto } from './../models/user';
+import { UserCreationAttributes as CreateUserDto } from '../models/user';
 import { UserDto, LoginDto } from '../dto';
 import { TokenData, DataStoredInToken } from '../interfaces';
 import { db } from '../db';

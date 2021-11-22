@@ -1,4 +1,4 @@
-import { ROLE } from './../utils/constants';
+import { ROLE } from '../utils/constants';
 import { NextFunction, Response } from 'express';
 import { RequestWithUser } from '../interfaces';
 
