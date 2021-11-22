@@ -44,7 +44,7 @@ class OrderService {
     });
 
     if (productPrices.length !== productIds.length)
-      throw new Error('Error in getProductPrices; some products were not found');
+      throw new Error('Error in addProductPricesToCartItems; some products were not found');
 
     const pricedCartItems = cartItems.map(cartItem => ({
       ...cartItem,

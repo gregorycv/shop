@@ -4,10 +4,12 @@ import { Controller } from '../interfaces/controller.interface';
 import { CreateOrderDto } from '../interfaces/order';
 import { db } from '../db';
 import { ROLE } from '../utils/constants';
+import OrderService from '../services/order-service';
 
 class OrderController implements Controller {
   public path = '/orders';
   public router = Router();
+  public orderService = new OrderService();
 
   constructor() {
     this.initializeRoutes();
@@ -21,8 +23,10 @@ class OrderController implements Controller {
     this.router.get(`${this.path}/all/:id`, authenticationMiddleware, roleMiddleware(ROLE.ADMIN), this.getOrderById);
 
     this.router.post(this.path, authenticationMiddleware, this.createOrder);
-    this.router.patch(`${this.path}/:id`, authenticationMiddleware, roleMiddleware(ROLE.ADMIN), this.modifyOrder);
-    this.router.delete(`${this.path}/:id`, authenticationMiddleware, roleMiddleware(ROLE.ADMIN), this.deleteOrder);
+    this.router.patch(`${this.path}/:id`, authenticationMiddleware, roleMiddleware(ROLE.ADMIN), this.updateOrderStatusById);
+    this.router.patch(this.path, authenticationMiddleware, roleMiddleware(ROLE.ADMIN), this.updateOrdersStatus);
+    this.router.delete(`${this.path}/:id`, authenticationMiddleware, roleMiddleware(ROLE.ADMIN), this.deleteOrderById);
+    this.router.delete(this.path, authenticationMiddleware, roleMiddleware(ROLE.ADMIN), this.deleteOrders);
   }
 
   // TODO: refactor admin/user router to prevent code repetition
@@ -53,7 +57,7 @@ class OrderController implements Controller {
       if (order) {
         response.send(order);
       } else {
-        next(new Error('No such product type found error.'));
+        next(new Error('No such order found error.'));
       }
     } catch (error) {
       next(error);
@@ -67,7 +71,7 @@ class OrderController implements Controller {
       if (order) {
         response.send(order);
       } else {
-        next(new Error('No such product type found error.'));
+        next(new Error('No such ordere found error.'));
       }
     } catch (error) {
       next(error);
@@ -78,32 +82,56 @@ class OrderController implements Controller {
   private createOrder = async (request: Request, response: Response, next: NextFunction) => {
     const orderData: CreateOrderDto = request.body;
     try {
-      const createdOrder = await db.Order.create(orderData);
+      const createdOrder = await this.orderService.placeOrder(orderData);
       response.send(createdOrder);
     } catch (error) {
       next(error);
     }
   };
 
-  private modifyOrder = async (request: Request, response: Response, next: NextFunction) => {
+  private updateOrderStatusById = async (request: Request, response: Response, next: NextFunction) => {
     const { id } = request.params;
-    const orderData: CreateOrderDto = request.body;
+    const { orderStatus } = request.body;
     try {
-      const updatedOrder = await db.Order.update(orderData, { where: { id } });
+      const updatedOrder = await db.Order.update({ status: orderStatus }, { where: { id } });
       response.send(updatedOrder);
     } catch (error) {
       next(error);
     }
   };
 
-  private deleteOrder = async (request: Request, response: Response, next: NextFunction) => {
+  private updateOrdersStatus = async (request: Request, response: Response, next: NextFunction) => {
+    const { orderStatus, orderIds } = request.body;
+    try {
+      const updatedOrder = await db.Order.update({ status: orderStatus }, { where: { id: orderIds } });
+      response.send(updatedOrder);
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  private deleteOrderById = async (request: Request, response: Response, next: NextFunction) => {
     const { id } = request.params;
     try {
       const successResponse = await db.Order.destroy({ where: { id } });
       if (successResponse) {
-        response.sendStatus(200);
+        response.sendStatus(204);
       } else {
-        throw new Error(`No product type found under id ${id}`);
+        throw new Error(`No order found under id ${id}`);
+      }
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  private deleteOrders = async (request: Request, response: Response, next: NextFunction) => {
+    const { orderIds } = request.body;
+    try {
+      const successResponse = await db.Order.destroy({ where: { id: orderIds } });
+      if (successResponse) {
+        response.sendStatus(204);
+      } else {
+        throw new Error(`Error. Something went wrong while deleting orders`);
       }
     } catch (error) {
       next(error);
