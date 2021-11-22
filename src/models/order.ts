@@ -10,9 +10,9 @@ interface OrderAttributes {
   totalPrice: number;
 }
 
-interface OrderCreationAttributes extends Optional<OrderAttributes, 'id'> {}
+interface OrderCreationAttributes extends Optional<OrderAttributes, 'id' | 'status'> {}
 
-class Order extends Model<OrderAttributes, OrderCreationAttributes> implements OrderAttributes {
+export class Order extends Model<OrderAttributes, OrderCreationAttributes> implements OrderAttributes {
   
   public id!: number;
   public userId!: number;
@@ -41,7 +41,8 @@ export default (sequelize: Sequelize, DataTypes: typeof DTypes): typeof Order =>
   },
   status: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
+    defaultValue: ORDER_STATUS.ACCEPTED
   },
   totalPrice: {
     type: DataTypes.DECIMAL,
